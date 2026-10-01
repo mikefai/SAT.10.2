@@ -10,16 +10,22 @@ export function V({ children }: { children: ReactNode }) {
   return <i className="font-math italic">{children}</i>;
 }
 
+const isPlain = (x: ReactNode) => typeof x === "string" || typeof x === "number";
+
 export function Frac({ n, d }: { n: ReactNode; d: ReactNode }) {
+  // Interactive parts (e.g. an input in the denominator) must render once, so only plain text gets a screen-reader twin.
+  const readable = isPlain(n) && isPlain(d);
   return (
     <span className="inline-block align-middle font-math">
-      <span aria-hidden="true" className="inline-flex flex-col items-center text-[0.85em] leading-tight">
+      <span aria-hidden={readable ? "true" : undefined} className="inline-flex flex-col items-center text-[0.85em] leading-tight">
         <span className="px-1">{n}</span>
         <span className="border-t border-current px-1">{d}</span>
       </span>
-      <span className="sr-only">
-        {n} over {d}
-      </span>
+      {readable && (
+        <span className="sr-only">
+          {n} over {d}
+        </span>
+      )}
     </span>
   );
 }
