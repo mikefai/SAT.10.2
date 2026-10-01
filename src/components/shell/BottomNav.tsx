@@ -7,7 +7,7 @@ export function BottomNav({ tab, onNavigate }: { tab: Tab; onNavigate: (tab: Tab
       aria-label="Primary"
       className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface pb-[env(safe-area-inset-bottom)] md:hidden"
     >
-      <ul className="grid grid-cols-4">
+      <ul className="grid grid-cols-5">
         {NAV_ITEMS.map(({ tab: id, short, icon: Icon }) => {
           const active = id === tab;
           return (
@@ -16,7 +16,7 @@ export function BottomNav({ tab, onNavigate }: { tab: Tab; onNavigate: (tab: Tab
                 type="button"
                 onClick={() => onNavigate(id)}
                 aria-current={active ? "page" : undefined}
-                className={`flex min-h-14 w-full flex-col items-center justify-center gap-0.5 text-xs font-medium ${
+                className={`flex min-h-14 w-full flex-col items-center justify-center gap-0.5 px-0.5 text-[11px] font-medium leading-tight ${
                   active ? "text-accent" : "text-muted"
                 }`}
               >

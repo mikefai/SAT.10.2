@@ -1,5 +1,5 @@
 "use client";
-import { Copy, ScanSearch, SlidersHorizontal } from "lucide-react";
+import { ClipboardList, Copy, ScanSearch, SlidersHorizontal } from "lucide-react";
 import type { Ref } from "react";
 import { ViewHeader } from "@/components/shell/ViewHeader";
 import { ANCHORS } from "@/content/anchors";
@@ -24,6 +24,13 @@ export function HomeOverview({
   const twins = twinStats(state, TWIN_SETS);
   const anchors = anchorStats(state, ANCHORS);
   const overall = Math.round(overallProgress(state, { questions: DECODER_QUESTIONS, sets: TWIN_SETS, anchors: ANCHORS }) * 100);
+  const exam = state.exam;
+  const examProgressText = !exam
+    ? "Not started yet"
+    : exam.phase === "report"
+      ? `Last score: ${exam.result?.scaledScore ?? "—"}`
+      : "In progress";
+  const examFraction = !exam ? 0 : exam.phase === "report" ? 1 : 0.5;
 
   return (
     <div className="space-y-10">
@@ -55,7 +62,7 @@ export function HomeOverview({
         <h2 id="path-heading" className="mb-3 text-2xl font-semibold tracking-tight">
           Your path
         </h2>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <ModuleCard
             step={1}
             icon={ScanSearch}
@@ -82,6 +89,15 @@ export function HomeOverview({
             progressText={`${anchors.explored} of ${anchors.total} explored`}
             fraction={anchors.explored / anchors.total}
             onOpen={() => onNavigate("anchors")}
+          />
+          <ModuleCard
+            step={4}
+            icon={ClipboardList}
+            title="Mock Exam"
+            description="A full adaptive practice test, start to finish."
+            progressText={examProgressText}
+            fraction={examFraction}
+            onOpen={() => onNavigate("exam")}
           />
         </div>
       </section>

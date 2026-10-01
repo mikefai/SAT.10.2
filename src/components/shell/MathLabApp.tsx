@@ -2,6 +2,7 @@
 import { useEffect, useRef } from "react";
 import { FormulaAnchors } from "@/components/anchors/FormulaAnchors";
 import { TrapDecoder } from "@/components/decoder/TrapDecoder";
+import { MockExam } from "@/components/exam/MockExam";
 import { HomeOverview } from "@/components/home/HomeOverview";
 import { TwinDrill } from "@/components/twins/TwinDrill";
 import { useActiveTab } from "@/lib/use-active-tab";
@@ -32,6 +33,7 @@ export function MathLabApp() {
         {tab === "decoder" && <TrapDecoder headingRef={headingRef} onNavigate={navigate} />}
         {tab === "twins" && <TwinDrill headingRef={headingRef} onNavigate={navigate} />}
         {tab === "anchors" && <FormulaAnchors headingRef={headingRef} />}
+        {tab === "exam" && <MockExam headingRef={headingRef} onNavigate={navigate} />}
       </main>
       <SiteFooter />
       <BottomNav tab={tab} onNavigate={navigate} />

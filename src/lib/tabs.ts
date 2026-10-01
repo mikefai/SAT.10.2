@@ -1,4 +1,4 @@
-export const TABS = ["home", "decoder", "twins", "anchors"] as const;
+export const TABS = ["home", "decoder", "twins", "anchors", "exam"] as const;
 export type Tab = (typeof TABS)[number];
 
 export function parseTab(hash: string): Tab {
