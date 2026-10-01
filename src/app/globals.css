@@ -1,1 +1,40 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #f8fafc; --surface: #ffffff; --surface-2: #f1f5f9; --ink: #0f172a; --muted: #475569; --line: #e2e8f0;
+  --accent: #4f46e5; --accent-solid: #4f46e5; --on-accent: #ffffff; --accent-soft: #eef2ff;
+  --trap: #92400e; --trap-soft: #fef3c7; --trap-line: #f59e0b; --ok: #047857; --ok-soft: #ecfdf5;
+  --grid: #e2e8f0; --axis: #64748b; --v1: #4f46e5; --v2: #0f766e; --v3: #db2777;
+}
+.dark {
+  --bg: #0b1020; --surface: #121a2e; --surface-2: #18223a; --ink: #e2e8f0; --muted: #94a3b8; --line: #243049;
+  --accent: #a5b4fc; --accent-solid: #a5b4fc; --on-accent: #0b1020; --accent-soft: #1e2547;
+  --trap: #fcd34d; --trap-soft: #3b2f0b; --trap-line: #b45309; --ok: #6ee7b7; --ok-soft: #0f2a22;
+  --grid: #1e293b; --axis: #64748b; --v1: #a5b4fc; --v2: #5eead4; --v3: #f9a8d4;
+}
+
+@theme inline {
+  --color-bg: var(--bg); --color-surface: var(--surface); --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink); --color-muted: var(--muted); --color-line: var(--line);
+  --color-accent: var(--accent); --color-accent-solid: var(--accent-solid); --color-on-accent: var(--on-accent);
+  --color-accent-soft: var(--accent-soft); --color-trap: var(--trap); --color-trap-soft: var(--trap-soft);
+  --color-trap-line: var(--trap-line); --color-ok: var(--ok); --color-ok-soft: var(--ok-soft);
+  --color-grid: var(--grid); --color-axis: var(--axis);
+  --color-v1: var(--v1); --color-v2: var(--v2); --color-v3: var(--v3);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-math: var(--font-stix), "Cambria Math", "Times New Roman", serif;
+}
+
+@theme {
+  --animate-fade-up: fade-up 220ms ease-out both;
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+html { font-size: 106.25%; }
+body { line-height: 1.6; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
