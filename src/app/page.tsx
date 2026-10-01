@@ -1,47 +1,33 @@
-import { TriangleAlert } from "lucide-react";
-import { eq, Frac, Sqrt, System } from "@/components/math/MathText";
-import { ThemeToggle } from "@/components/shell/ThemeToggle";
-import { Button } from "@/components/ui/Button";
-import { Callout } from "@/components/ui/Callout";
-import { Card } from "@/components/ui/Card";
-import { Pill } from "@/components/ui/Pill";
-import { ProgressDots } from "@/components/ui/ProgressDots";
+import { VisualAnchor } from "@/components/visuals/VisualAnchor";
+import { DECODER_QUESTIONS } from "@/content/decoder";
+import { TWIN_SETS } from "@/content/twins";
+import type { VisualSpec } from "@/content/types";
 
-// Temporary design-system specimen (replaced in Task 7).
+// Temporary visual gallery (replaced in Task 7).
+const ENTRIES: { name: string; spec: VisualSpec }[] = [
+  ...DECODER_QUESTIONS.map((q) => ({ name: q.id, spec: q.visual })),
+  ...TWIN_SETS.flatMap((s) => [
+    { name: `${s.id} sample`, spec: s.sample.visual },
+    { name: `${s.id} twin`, spec: s.twin.visual },
+  ]),
+];
+
 export default function Page() {
   return (
-    <main className="mx-auto max-w-3xl space-y-4 p-6">
-      <ThemeToggle />
-      <Card>
-        <div className="flex flex-wrap gap-2">
-          <Button>Primary</Button>
-          <Button variant="secondary">Secondary</Button>
-          <Button variant="ghost">Ghost</Button>
-        </div>
-        <div className="mt-4 flex flex-wrap gap-2">
-          <Pill>Neutral</Pill>
-          <Pill tone="accent">Accent</Pill>
-          <Pill tone="trap">Trap</Pill>
-          <Pill tone="ok">OK</Pill>
-        </div>
-        <div className="mt-4">
-          <ProgressDots total={5} current={2} done={[true, true, false, false, false]} label={(i) => `Question ${i + 1}`} />
-        </div>
-      </Card>
-      <Callout tone="trap" title="Trap spotted" icon={TriangleAlert}>
-        You forgot to distribute the negative sign.
-      </Callout>
-      <Callout tone="ok" title="Decoded!" />
-      <Callout tone="info" title="Hint">
-        Think about what the −2 multiplies.
-      </Callout>
-      <Card>
-        {eq("5 − 2(x − 4) = 3x − 7", true)}
-        <p className="text-center">
-          <Frac n="4" d="5" /> and 2<Sqrt>7</Sqrt>
-        </p>
-        <System lines={["2x + 3y = 12", "2x − y = 4"]} />
-      </Card>
+    <main className="mx-auto max-w-6xl space-y-8 p-6">
+      {ENTRIES.map((entry) => (
+        <section key={entry.name}>
+          <h2 className="mb-2 font-semibold">{entry.name}</h2>
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+            {[0, 1, 2, 3].map((level) => (
+              <div key={level} className="rounded-xl border border-line bg-surface p-3">
+                <p className="mb-1 text-xs text-muted">level {level}</p>
+                <VisualAnchor spec={entry.spec} level={level} />
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
     </main>
   );
 }
