@@ -10,10 +10,10 @@ const mc = (id: string, domain: ExamDomain, correctLetter: "A" | "B" | "C" | "D"
   prompt: "p",
   explanation: "e",
   choices: [
-    { letter: "A", label: "a", value: 1 },
-    { letter: "B", label: "b", value: 2 },
-    { letter: "C", label: "c", value: 3 },
-    { letter: "D", label: "d", value: 4 },
+    { letter: "A", label: "a" },
+    { letter: "B", label: "b" },
+    { letter: "C", label: "c" },
+    { letter: "D", label: "d" },
   ],
   correctLetter,
 });

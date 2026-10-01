@@ -31,7 +31,6 @@ export const MODULE_MINUTES = 35; // timed minutes per module, matching the real
 export interface ExamMcChoice {
   letter: ChoiceLetter;
   label: ReactNode;
-  value: number;
 }
 interface ExamQuestionBase {
   id: string;
