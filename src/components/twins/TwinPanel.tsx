@@ -30,7 +30,7 @@ export function TwinPanel({
   const anyAssisted = progress.assisted.some(Boolean);
 
   return (
-    <Card className="space-y-4">
+    <Card className="min-w-0 space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="text-sm font-semibold uppercase tracking-wide text-muted">Your twin</p>
         <AnswerModeToggle mode={mode} onChange={(next) => dispatch({ type: "settings/answerMode", mode: next })} />

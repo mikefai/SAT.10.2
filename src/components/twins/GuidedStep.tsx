@@ -59,7 +59,7 @@ export function GuidedStep({
         aria-label={step.ask}
         value={text}
         onChange={(event) => setText(event.target.value)}
-        className="w-[5ch] rounded-md border-2 border-accent bg-surface px-1 text-center font-math text-xl"
+        className="h-11 w-[6ch] rounded-md border-2 border-accent bg-surface px-1 text-center align-middle font-math text-xl"
       />
     );
   } else {

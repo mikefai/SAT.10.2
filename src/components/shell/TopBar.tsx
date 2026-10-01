@@ -15,8 +15,8 @@ export function TopBar({ tab, onNavigate }: { tab: Tab; onNavigate: (tab: Tab) =
           <span aria-hidden="true" className="flex size-9 items-center justify-center rounded-xl bg-accent-solid text-on-accent">
             ◆
           </span>
-          <span className="text-lg font-semibold tracking-tight">Math Lab</span>
-          <span className="rounded-full bg-surface-2 px-2 py-0.5 text-xs font-semibold text-muted">OCT1.2</span>
+          <span className="whitespace-nowrap text-lg font-semibold tracking-tight">Math Lab</span>
+          <span className="hidden rounded-full bg-surface-2 px-2 py-0.5 text-xs font-semibold text-muted sm:inline-block">OCT1.2</span>
         </button>
         <nav aria-label="Primary" className="ml-auto hidden items-center gap-1 md:flex">
           {NAV_ITEMS.map(({ tab: id, label, icon: Icon }) => {

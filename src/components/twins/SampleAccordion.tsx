@@ -20,7 +20,7 @@ export function SampleAccordion({
 }) {
   const highestViewed = viewed.lastIndexOf(true);
   return (
-    <Card className="space-y-4">
+    <Card className="min-w-0 space-y-4">
       <div>
         <p className="mb-1 text-sm font-semibold uppercase tracking-wide text-muted">Sample (solved)</p>
         <div className="text-lg">{set.sample.prompt}</div>
@@ -42,10 +42,10 @@ export function SampleAccordion({
                   aria-expanded={open}
                   aria-controls={`sample-panel-${set.id}-${i}`}
                   onClick={() => onToggle(index)}
-                  className="flex min-h-12 w-full items-center gap-2 rounded-xl px-3 py-2 text-left"
+                  className="flex min-h-12 w-full flex-wrap items-center gap-2 rounded-xl px-3 py-2 text-left"
                 >
                   <Pill tone="accent">Step {i + 1}</Pill>
-                  <span className="flex-1 font-medium">{step.ask}</span>
+                  <span className="min-w-[10ch] flex-1 font-medium">{step.ask}</span>
                   {mirror && <Pill tone="accent">Mirror step</Pill>}
                   {viewed[i] && (
                     <>
