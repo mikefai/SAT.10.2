@@ -29,7 +29,7 @@ export function MathLabApp() {
       <TopBar tab={tab} onNavigate={navigate} />
       <main id="main" className="mx-auto w-full max-w-5xl px-4 pb-28 pt-6 sm:px-6 md:pb-12">
         {tab === "home" && <HomeOverview headingRef={headingRef} onNavigate={navigate} />}
-        {tab === "decoder" && <TrapDecoder headingRef={headingRef} />}
+        {tab === "decoder" && <TrapDecoder headingRef={headingRef} onNavigate={navigate} />}
         {tab === "twins" && <TwinDrill headingRef={headingRef} />}
         {tab === "anchors" && <FormulaAnchors headingRef={headingRef} />}
       </main>
