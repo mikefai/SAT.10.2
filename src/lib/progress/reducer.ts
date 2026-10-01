@@ -1,3 +1,4 @@
+import { examReducer } from "./exam-reducer";
 import type { DecoderProgress, ProgressAction, ProgressState, Triple, TwinProgress } from "./types";
 
 export const MISSES_BEFORE_SHOW_ME = 2;
@@ -9,6 +10,7 @@ export const initialProgress: ProgressState = {
   anchorsExplored: [],
   answerMode: "type",
   cursor: { decoder: 0, twin: 0, anchor: "slope" },
+  exam: null,
 };
 
 export const emptyDecoder = (): DecoderProgress => ({ picks: [], solved: false, stepsRevealed: 0 });
@@ -95,6 +97,19 @@ export function progressReducer(state: ProgressState, action: ProgressAction): P
     }
     case "progress/reset":
       return { ...initialProgress, answerMode: state.answerMode };
+    case "exam/start":
+    case "exam/answerMc":
+    case "exam/answerSpr":
+    case "exam/clearAnswer":
+    case "exam/toggleFlag":
+    case "exam/goTo":
+    case "exam/submitModule1":
+    case "exam/startModule2":
+    case "exam/submitModule2":
+    case "exam/exit": {
+      const nextExam = examReducer(state.exam, action);
+      return nextExam === state.exam ? state : { ...state, exam: nextExam };
+    }
     default:
       return assertNever(action);
   }

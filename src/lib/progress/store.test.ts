@@ -75,4 +75,57 @@ describe("createProgressStore", () => {
   it("always serves the initial state as the server snapshot", () => {
     expect(createProgressStore(memory(saved)).getServerSnapshot()).toBe(initialProgress);
   });
+
+  describe("exam state", () => {
+    it("loads a valid in-progress exam", () => {
+      const withExam = JSON.stringify({
+        ...initialProgress,
+        exam: {
+          phase: "module2",
+          cursor: 3,
+          startedAt: 1000,
+          deadline: 2_000_000,
+          module1Responses: { 0: { letter: "B" }, 2: { text: "4/5" } },
+          module1Flags: [1, 5],
+          module1Result: { correct: 15, total: 22 },
+          module2Branch: "harder",
+          module2Responses: { 0: { letter: "A" } },
+          module2Flags: [],
+          result: null,
+        },
+      });
+      const exam = createProgressStore(memory(withExam)).getSnapshot().exam;
+      expect(exam?.phase).toBe("module2");
+      expect(exam?.module1Responses).toEqual({ 0: { letter: "B" }, 2: { text: "4/5" } });
+      expect(exam?.module2Branch).toBe("harder");
+    });
+    it("drops the whole attempt — rather than guessing — on any corruption", () => {
+      const bad = JSON.stringify({ ...initialProgress, exam: { phase: "module2", cursor: 0, startedAt: 1000 } }); // missing module2Branch
+      expect(createProgressStore(memory(bad)).getSnapshot().exam).toBeNull();
+    });
+    it("defaults to no exam when the field is absent entirely", () => {
+      expect(createProgressStore(memory(saved)).getSnapshot().exam).toBeNull();
+    });
+    it("ignores out-of-range response indexes and flags", () => {
+      const messy = JSON.stringify({
+        ...initialProgress,
+        exam: {
+          phase: "module1",
+          cursor: 0,
+          startedAt: 1000,
+          deadline: 2000,
+          module1Responses: { 0: { letter: "B" }, 99: { letter: "A" }, "-1": { letter: "C" } },
+          module1Flags: [1, 99, -1, 1],
+          module1Result: null,
+          module2Branch: null,
+          module2Responses: {},
+          module2Flags: [],
+          result: null,
+        },
+      });
+      const exam = createProgressStore(memory(messy)).getSnapshot().exam;
+      expect(exam?.module1Responses).toEqual({ 0: { letter: "B" } });
+      expect(exam?.module1Flags).toEqual([1]);
+    });
+  });
 });
